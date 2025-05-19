@@ -3,3 +3,9 @@
   to = "https://www.dermascan.me/:splat"
   status = 301
   force = true
+
+  [[redirects]]
+  from = "http://dermascan.me/*"
+  to = "https://www.dermascan.me/:splat"
+  status = 301
+  force = true
