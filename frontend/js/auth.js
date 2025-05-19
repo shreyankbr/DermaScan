@@ -13,6 +13,14 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then(() => {
+        console.log("Auth persistence set to LOCAL");
+    })
+    .catch((error) => {
+        console.error("Error setting auth persistence:", error);
+    });
+
 // DOM elements
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
@@ -102,17 +110,25 @@ signupBtn.addEventListener('click', (e) => {
         });
 });
 
-// Redirect if already logged in
+ //Check if user is logged in
 auth.onAuthStateChanged((user) => {
     const currentPath = window.location.pathname;
+    const protectedPaths = ['/diagnosis.html', '/history.html'];
+    const publicPaths = ['/', '/index.html', '/login.html'];
     
+    console.log(`Auth state changed. User: ${user ? user.email : 'none'}, Path: ${currentPath}`);
+
     if (user) {
-        if (currentPath.includes('login.html') || currentPath.includes('index.html')) {
-            window.location.href = 'https://dermascan.me/diagnosis.html';
+        // User is logged in
+        if (publicPaths.some(path => currentPath.endsWith(path))) {
+            console.log("Redirecting to diagnosis");
+            window.location.href = '/diagnosis.html';
         }
     } else {
-        if (currentPath.includes('diagnosis.html') || currentPath.includes('history.html')) {
-            window.location.href = 'https://dermascan.me/index.html';
+        // User is not logged in
+        if (protectedPaths.some(path => currentPath.endsWith(path))) {
+            console.log("Redirecting to home");
+            window.location.href = '/index.html';
         }
     }
 });
