@@ -20,14 +20,19 @@ logger = logging.getLogger(__name__)
 ALLOWED_ORIGINS = [
     "https://dermascan.me",
     "https://www.dermascan.me",
+    "http://dermascan.me",
+    "http://www.dermascan.me",
     "https://api.dermascan.me",
-    "https://dermasca.netlify.app"
     "http://localhost:5000",
     "http://localhost:3000"
 ]
 
 CORS(app, resources={
-    r"/predict": {"origins": ALLOWED_ORIGINS},
+    r"/predict": {
+        "origins": ALLOWED_ORIGINS,
+        "methods": ["POST"],
+        "allow_headers": ["Content-Type"]
+    },
     r"/warmup": {"origins": "*"},
     r"/health": {"origins": "*"}
 })

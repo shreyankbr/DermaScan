@@ -104,9 +104,15 @@ signupBtn.addEventListener('click', (e) => {
 
 // Redirect if already logged in
 auth.onAuthStateChanged((user) => {
+    const currentPath = window.location.pathname;
+
     if (user) {
-        window.location.href = 'https://dermascan.me/diagnosis.html';
-    } else if (!window.location.href.includes('login.html')) {
-        window.location.href = 'https://dermascan.me/login.html';
+        if (currentPath.includes('login.html') || currentPath.includes('index.html')) {
+            window.location.href = 'https://dermascan.me/diagnosis.html';
+        }
+    } else {
+        if (!currentPath.includes('login.html') && !currentPath.includes('index.html')) {
+            window.location.href = 'https://dermascan.me/index.html';
+        }
     }
 });
