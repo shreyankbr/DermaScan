@@ -105,13 +105,13 @@ signupBtn.addEventListener('click', (e) => {
 // Redirect if already logged in
 auth.onAuthStateChanged((user) => {
     const currentPath = window.location.pathname;
-
+    
     if (user) {
         if (currentPath.includes('login.html') || currentPath.includes('index.html')) {
             window.location.href = 'https://dermascan.me/diagnosis.html';
         }
     } else {
-        if (!currentPath.includes('login.html') && !currentPath.includes('index.html')) {
+        if (currentPath.includes('diagnosis.html') || currentPath.includes('history.html')) {
             window.location.href = 'https://dermascan.me/index.html';
         }
     }
