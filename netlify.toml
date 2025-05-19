@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://dermascan.me/*"
+  to = "https://www.dermascan.me/:splat"
+  status = 301
+  force = true
