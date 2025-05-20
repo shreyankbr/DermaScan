@@ -27,6 +27,7 @@ ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://dermasca.netlify.app/",
     "https://*.netlify.app"
+]
 
 CORS(app, resources={
     r"/predict": {
