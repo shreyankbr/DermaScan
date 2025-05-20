@@ -147,10 +147,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
 
-            const response = await fetch("https://api.dermascan.me/predict", {
+            const response = await fetch("https://dermascan-backend.onrender.com", {
                 method: "POST",
                 body: formData,
-                signal: controller.signal
+                signal: controller.signal,
+                mode: 'cors', 
+                credentials: 'include' 
+            }).catch(error => {
+                throw new Error(`Network error: ${error.message}`);
             });
 
             clearTimeout(timeoutId);

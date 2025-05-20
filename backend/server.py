@@ -24,18 +24,27 @@ ALLOWED_ORIGINS = [
     "http://www.dermascan.me",
     "https://api.dermascan.me",
     "http://localhost:5000",
-    "http://localhost:3000"
-]
+    "http://localhost:3000",
+    "https://dermasca.netlify.app/",
+    "https://*.netlify.app"
 
 CORS(app, resources={
     r"/predict": {
         "origins": ALLOWED_ORIGINS,
-        "methods": ["POST"],
-        "allow_headers": ["Content-Type"]
+        "methods": ["POST", "OPTIONS"], 
+        "allow_headers": ["Content-Type"],
+        "supports_credentials": True
     },
     r"/warmup": {"origins": "*"},
     r"/health": {"origins": "*"}
 })
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
 
 # App configuration
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5MB limit
