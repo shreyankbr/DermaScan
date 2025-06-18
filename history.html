@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DermaScan - Diagnosis History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-allergies"></i>
+            <h1>DermaScan</h1>
+        </div>
+        <nav class="nav">
+            <button id="back-btn" class="nav-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+            </button>
+            <button id="logout-btn" class="nav-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="history-section">
+            <div class="history-card">
+                <h2>Diagnosis History</h2>
+                <div id="history-list" class="history-list">
+                    <!-- History items will be inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/history.js"></script>
+</body>
+</html>

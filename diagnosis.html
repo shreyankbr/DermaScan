@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DermaScan - Skin Disease Diagnosis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- jsPDF for PDF reports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-allergies"></i>
+            <h1>DermaScan</h1>
+        </div>
+        <nav class="nav">
+            <button id="history-btn" class="nav-btn">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </button>
+            <button id="logout-btn" class="nav-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="disclaimer-notice">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>This is a demonstration project only. Results are simulated and should not be
+                considered medical advice. Consult a real dermatologist for any skin concerns.</p>
+        </div>
+        <section class="upload-section">
+            <div class="upload-card">
+                <h2>Skin Disease Diagnosis</h2>
+                <p class="subtitle">Upload an image of your skin condition or use your camera for diagnosis</p>
+
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <p>Drag & drop image (currently only supports diagnosis of Acne, Benign tumors, Eczema, Infestations Bites, Lichen, Psoriasis, Seborrh Keratoses, Vitiligo, Warts)</p>
+                    <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                </div>
+
+                <div class="camera-buttons" style="margin: 15px 0; display: flex; gap: 10px;">
+                    <button id="camera-btn" class="btn secondary-btn" style="flex: 1;">
+                        <i class="fas fa-camera"></i> Use Camera
+                    </button>
+                    <button id="upload-btn" class="btn secondary-btn" style="flex: 1;">
+                        <i class="fas fa-upload"></i> Upload Instead
+                    </button>
+                </div>
+
+                <div class="preview-container" id="preview-container" style="display: none;">
+                    <div class="image-preview">
+                        <img id="preview-image" src="#" alt="Preview">
+                        <button id="remove-image" class="remove-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <canvas id="gradcam-canvas" style="display: none;"></canvas>
+                </div>
+
+                <div class="symptoms-form">
+                    <h3>Symptoms (check if yes)</h3>
+                    <div class="symptom-options">
+                        <label class="symptom-checkbox">
+                            <input type="checkbox" id="itching">
+                            <span class="checkmark"></span>
+                            Itching
+                        </label>
+                        <label class="symptom-checkbox">
+                            <input type="checkbox" id="bleeding">
+                            <span class="checkmark"></span>
+                            Bleeding/Oozing
+                        </label>
+                        <label class="symptom-checkbox">
+                            <input type="checkbox" id="scaly_skin">
+                            <span class="checkmark"></span>
+                            Scaly/Flaky Skin
+                        </label>
+                        <label class="symptom-checkbox">
+                            <input type="checkbox" id="white_patches">
+                            <span class="checkmark"></span>
+                            White Patches
+                        </label>
+                        <label class="symptom-checkbox">
+                            <input type="checkbox" id="sudden_onset">
+                            <span class="checkmark"></span>
+                            Sudden Onset
+                        </label>
+                    </div>
+                </div>
+
+                <button id="diagnose-btn" class="btn primary-btn" disabled>
+                    <i class="fas fa-search"></i> Diagnose
+                </button>
+
+                <button id="ask-doctor" class="btn secondary-btn" style="margin-top: 10px; display: none;">
+                    <i class="fas fa-comment-medical"></i> Ask Virtual Doctor
+                </button>
+            </div>
+        </section>
+
+        <section class="results-section" id="results-section" style="display: none;">
+            <div class="results-card">
+                <h2>Diagnosis Results</h2>
+                <div class="results-content">
+                    <div class="results-visualization">
+                        <div class="image-comparison">
+                            <div class="original-image">
+                                <h4>Original Image</h4>
+                                <img id="original-image" src="#" alt="Original">
+                            </div>
+                            <div class="gradcam-image">
+                                <h4>Attention Areas</h4>
+                                <img id="gradcam-image" src="#" alt="GradCAM">
+                            </div>
+                        </div>
+                        <div class="results-chart">
+                            <canvas id="results-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="results-details">
+                        <div class="top-diagnosis">
+                            <h3>Most Likely Condition</h3>
+                            <div class="diagnosis-item" id="top-diagnosis">
+                                <div class="diagnosis-name">Loading...</div>
+                                <div class="diagnosis-probability">0%</div>
+                                <div class="confidence-meter">
+                                    <div class="confidence-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="other-diagnoses">
+                            <h3>Other Possible Conditions</h3>
+                            <div id="other-diagnoses"></div>
+                        </div>
+                        <div class="recommendations">
+                            <h3>Recommendations</h3>
+                            <div id="recommendations"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button id="generate-report" class="btn secondary-btn">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                    <button id="new-diagnosis" class="btn primary-btn">
+                        <i class="fas fa-redo"></i> New Diagnosis
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="loading-modal" id="loading-modal" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Analyzing your skin condition...</p>
+        </div>
+    </div>
+
+    <!-- Camera modal -->
+    <div id="camera-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-camera">&times;</span>
+            <video id="camera-feed" autoplay playsinline></video>
+            <div class="camera-controls">
+                <button id="capture-btn" class="btn primary-btn">
+                    <i class="fas fa-camera"></i> Capture
+                </button>
+                <button id="cancel-camera-btn" class="btn secondary-btn">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="loading-modal" id="loading-modal" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Analyzing your skin condition...</p>
+        </div>
+    </div>
+
+    <!-- Load main script as ES module -->
+    <script type="module" src="js/diagnosis.js"></script>
+</body>
+
+</html>

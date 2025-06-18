@@ -1,0 +1,15 @@
+flask
+flask-cors
+torch
+torchvision
+pillow
+numpy
+timm
+tqdm
+scikit-learn
+pyrebase
+opencv-python
+matplotlib
+firebase-admin
+pyrebase4
+python-dotenv

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DermaScan - AI Skin Disease Classifier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f5f7ff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(74, 107, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: #4a6bff;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            color: #333;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .login-btn {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .login-btn:hover {
+            background-color: #3a5bef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 107, 255, 0.2);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin: 60px 0 40px;
+            padding: 0 20px;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .welcome-section p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Features */
+        .features-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px auto;
+            gap: 20px;
+            max-width: 1200px;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(74, 107, 255, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #4a6bff;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-desc {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Safety Banner */
+        .safety-banner {
+            background-color: #e3f2fd;
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin: 50px auto;
+            display: flex;
+            align-items: center;
+            max-width: 1000px;
+        }
+
+        .safety-icon {
+            font-size: 2rem;
+            color: #1976d2;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .safety-text {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .features-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-card {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+
+            .safety-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .safety-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar with Login Button -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-allergies"></i>
+            <h1>DermaScan</h1>
+        </div>
+        <a href="index.html" class="login-btn">Login</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="disclaimer-banner">
+        <strong>⚠️ Disclaimer:</strong> This is a demo/project website for educational purposes only.
+        The diagnoses provided should not be taken as medical advice. Always consult a qualified
+        healthcare professional for medical concerns.
+    </div>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Welcome to DermaScan</h1>
+            <p>Your trusted AI-powered skin disease classification system. Get instant, accurate analysis of skin
+                conditions from the comfort of your home.</p>
+        </div>
+
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="feature-title">Instant Results</h3>
+                <p class="feature-desc">
+                    Get accurate skin disease analysis in seconds with our advanced AI technology,
+                    saving you time and providing peace of mind.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <h3 class="feature-title">Expert Approved</h3>
+                <p class="feature-desc">
+                    Our algorithms are developed in collaboration with dermatologists to ensure
+                    reliable and medically sound results.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="feature-title">Easy to Use</h3>
+                <p class="feature-desc">
+                    Simple interface designed for everyone. Just upload an image, answer few questions and get
+                    instant analysis without any technical knowledge required.
+                </p>
+            </div>
+        </div>
+
+        <div class="safety-banner">
+            <i class="fas fa-shield-alt safety-icon"></i>
+            <div class="safety-text">
+                <strong>Your privacy and security are our top priority.</strong> All your data is encrypted and
+                protected.
+                We never share your personal information or medical data with third parties.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
