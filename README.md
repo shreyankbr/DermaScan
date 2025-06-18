@@ -47,6 +47,7 @@ The model was trained on a curated dataset from Kaggle containing 5,835 images a
 
 The dataset I used is no longer available on Kaggle. Any dataset from kaggle can be taken, but be sure to make the necessary name changes in all of the files.
 
+For those who only want the project, I have uploaded my trained model, you may use that model and skip preprocessing and model training
 
 ## Installation
 
@@ -75,9 +76,7 @@ The dataset I used is no longer available on Kaggle. Any dataset from kaggle can
 
   - Apply the rules given in Firestore rules.txt to firestore rules
 
-4. Dataset:
-
-  - For those who only want the project, I have uploaded my trained model, you may use that model and skip preprocessing and model training
+4. Dataset Preprocessing:
   
   - Download any kaggle dataset and make necessary changes in all files regardiing names
 
