@@ -62,43 +62,43 @@ For those who only want the project, I have uploaded my trained model, you may u
 
 2. Virtual Environment:
 
-  - Set up a virtual environment in the repo folder 
+    - Set up a virtual environment in the repo folder 
 
-  - Run pip install -r requirements.txt in cmd after changing into the repo folder
+    - Run pip install -r requirements.txt in cmd after changing into the repo folder
 
 3. **Firebase Configuration**:
-   
-   - Create a new Firebase project
-     
-   - Enable Email/Password authentication in Firebase Console
-     
-   - Update firebaseConfig in js/diagnosis.js, js/auth.js and js/history.js
-     ```javascript
-     const firebaseConfig = {
-       apiKey: "YOUR_API_KEY",
-       authDomain: "YOUR_AUTH_DOMAIN",
-       databaseURL: "YOUR_DATABASE_URL",
-       projectId: "YOUR_PROJECT_ID",
-       storageBucket: "YOUR_STORAGE_BUCKET",
-       messagingSenderId: "YOUR_SENDER_ID",
-       appId: "YOUR_APP_ID"
-     };
 
-  - Apply the rules given in Firestore rules.txt to firestore rules
+    - Create a new Firebase project
+     
+    - Enable Email/Password authentication in Firebase Console
+     
+    - Update firebaseConfig in js/diagnosis.js, js/auth.js and js/history.js
+      ```javascript
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        databaseURL: "YOUR_DATABASE_URL",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+      };
+
+    - Apply the rules given in Firestore rules.txt to firestore rules
 
 4. Dataset Preprocessing:
   
-  - Download any kaggle dataset and make necessary changes in all files regardiing names
+    - Download any kaggle dataset and make necessary changes in all files regardiing names
 
-  - Run preprocess.py if the dataset is not split into train, test, validation
+    - Run preprocess.py if the dataset is not split into train, test, validation
 
 5. Model training:
 
-  - Run model_train.py and train the model and select the best ones from the many epochs
+    - Run model_train.py and train the model and select the best ones from the many epochs
 
 6. Run:
 
-  - Run server.py preferable in visual studio code in dedicated terminal and open the localhost link with the 5000 port
+    - Run server.py preferable in visual studio code in dedicated terminal and open the localhost link with the 5000 port
    
 ## Usuage
 
