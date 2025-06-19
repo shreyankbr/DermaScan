@@ -66,13 +66,22 @@ For those who only want the project, I have uploaded my trained model, you may u
 
   - Run pip install -r requirements.txt in cmd after changing into the repo folder
 
-3. Configure Firebase:
-
-  - Create a new Firebase Firestore project
-
-  - Update firebaseConfig in js/diagnosis.js, js/auth.js and js/history.js
-
-  - Enable Email/Password authentication in Firebase Console
+3. **Firebase Configuration**:
+   - Create a new Firebase project
+     
+   - Enable Email/Password authentication in Firebase Console
+     
+   - Update firebaseConfig in js/diagnosis.js, js/auth.js and js/history.js
+     ```javascript
+     const firebaseConfig = {
+       apiKey: "YOUR_API_KEY",
+       authDomain: "YOUR_AUTH_DOMAIN",
+       databaseURL: "YOUR_DATABASE_URL",
+       projectId: "YOUR_PROJECT_ID",
+       storageBucket: "YOUR_STORAGE_BUCKET",
+       messagingSenderId: "YOUR_SENDER_ID",
+       appId: "YOUR_APP_ID"
+     };
 
   - Apply the rules given in Firestore rules.txt to firestore rules
 
