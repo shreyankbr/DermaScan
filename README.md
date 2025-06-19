@@ -67,6 +67,7 @@ For those who only want the project, I have uploaded my trained model, you may u
   - Run pip install -r requirements.txt in cmd after changing into the repo folder
 
 3. **Firebase Configuration**:
+   
    - Create a new Firebase project
      
    - Enable Email/Password authentication in Firebase Console
